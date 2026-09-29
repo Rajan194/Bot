@@ -390,3 +390,80 @@ void solveHillClimbing() {
     cout << "Maximum value f(x): " << current_val << "\n\n";
 }
 */
+/*
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+#include <random>
+
+using namespace std;
+
+// The function to minimize (contains local minima)
+double costFunction(double x) {
+    return (x * x) + 10 * sin(x);
+}
+
+void solveSimulatedAnnealing() {
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_real_distribution<> start_dis(-10.0, 10.0);
+    uniform_real_distribution<> step_dis(-1.0, 1.0); 
+    uniform_real_distribution<> prob_dis(0.0, 1.0);
+
+    double current_x = start_dis(gen);
+    double current_cost = costFunction(current_x);
+    
+    // Track the absolute best found across the whole process
+    double best_x = current_x;
+    double best_cost = current_cost;
+
+    // Annealing parameters
+    double temperature = 100.0;
+    double cooling_rate = 0.99;
+    double min_temperature = 0.001;
+    
+    cout << "--- Simulated Annealing ---\n";
+    cout << fixed << setprecision(4);
+    cout << "Starting x: " << current_x << " | Initial Cost: " << current_cost << "\n";
+
+    while (temperature > min_temperature) {
+        // Generate a random neighboring state within a certain range
+        double neighbor_x = current_x + step_dis(gen);
+        double neighbor_cost = costFunction(neighbor_x);
+
+        // If the neighbor is strictly better (lower cost), accept it
+        if (neighbor_cost < current_cost) {
+            current_x = neighbor_x;
+            current_cost = neighbor_cost;
+            
+            if (current_cost < best_cost) {
+                best_cost = current_cost;
+                best_x = current_x;
+            }
+        } 
+        else {
+            // If the neighbor is worse, accept it with a probability based on temperature
+            double cost_difference = neighbor_cost - current_cost; // Positive value
+            double acceptance_probability = exp(-cost_difference / temperature);
+            
+            if (prob_dis(gen) < acceptance_probability) {
+                current_x = neighbor_x;
+                current_cost = neighbor_cost;
+            }
+        }
+
+        // Cool down the system
+        temperature *= cooling_rate;
+    }
+
+    cout << "Global minimum found at x: " << best_x << "\n";
+    cout << "Minimum cost f(x): " << best_cost << "\n";
+}
+
+int main() {
+    fast_io;
+    solveHillClimbing();
+    solveSimulatedAnnealing();
+    return 0;
+}
+*/
