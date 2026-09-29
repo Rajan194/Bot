@@ -126,3 +126,14 @@ int main() {
 
     return 0;
 }
+/*
+The following constraints apply:
+● AI and DBMS cannot be scheduled at the same time.
+● AI and OS cannot be scheduled at the same time.
+● DBMS and CN cannot be scheduled at the same time.
+● OS and CN cannot be scheduled at the same time.
+● AI can be scheduled only in slots 1, 2, or 3.
+● DBMS can be scheduled only in slots 1, 2, or 4.
+● OS can be scheduled only in slots 2, 3, or 4.
+● CN can be scheduled only in slots 1, 3, or 4.
+*/
