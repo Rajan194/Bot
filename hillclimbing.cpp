@@ -334,3 +334,59 @@ int main()
 
     return 0;
 }
+/*
+    Equation hill climbing
+    #include <iostream>
+#include <iomanip>
+#include <random>
+
+using namespace std;
+
+#define fast_io ios_base::sync_with_stdio(false); cin.tie(NULL);
+
+// The continuous function to maximize
+double f(double x) {
+    return -(x * x) + (4 * x) + 10;
+}
+
+void solveHillClimbing() {
+    // Random number generator for initial state
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_real_distribution<> dis(-10.0, 10.0); // Start somewhere between -10 and 10
+
+    double current_x = dis(gen);
+    double current_val = f(current_x);
+    double step_size = 0.01; // How far to look left and right
+    
+    cout << "--- Hill Climbing ---\n";
+    cout << fixed << setprecision(4);
+    cout << "Starting x: " << current_x << " | Initial f(x): " << current_val << "\n";
+
+    while (true) {
+        // Generate continuous neighbors
+        double left_x = current_x - step_size;
+        double right_x = current_x + step_size;
+
+        double left_val = f(left_x);
+        double right_val = f(right_x);
+
+        // Find the steepest ascent
+        if (left_val > current_val && left_val >= right_val) {
+            current_x = left_x;
+            current_val = left_val;
+        } 
+        else if (right_val > current_val && right_val > left_val) {
+            current_x = right_x;
+            current_val = right_val;
+        } 
+        else {
+            // Neither left nor right improves the value; we are at the peak
+            break;
+        }
+    }
+
+    cout << "Maximum found at x: " << current_x << "\n";
+    cout << "Maximum value f(x): " << current_val << "\n\n";
+}
+*/
